@@ -9,7 +9,9 @@ public:
     Box(bool filled);
     void interplay(Player& person) final;
     OBJECT GetObject() final;
+    bool GetOpen();
 private:
     OBJECT type;
     bool full;
+    bool open;
 };

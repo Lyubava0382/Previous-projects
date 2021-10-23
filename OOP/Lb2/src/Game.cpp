@@ -132,9 +132,11 @@
                         case BOX: {
                             Box keybox(game.GetField()[person.GetLocal().y][person.GetLocal().x].GetKey());
                             keybox.interplay(person);
-                            game.GetField()[person.GetLocal().y][person.GetLocal().x].SetObject(NONE);
-                            game.GetField()[person.GetLocal().y][person.GetLocal().x].SetKey(false);
-                            break;
+                           if (keybox.GetOpen()){
+                                game.GetField()[person.GetLocal().y][person.GetLocal().x].SetObject(NONE);
+                                game.GetField()[person.GetLocal().y][person.GetLocal().x].SetKey(false);
+                            }
+			 break;
                         }
                         case FOOD: {
                             Heal healing;
