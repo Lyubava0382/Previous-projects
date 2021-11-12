@@ -1,15 +1,18 @@
-#pragma once
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
-#include "structs.h"
+//
+// Created by Любава on 12.11.2021.
+//
+
+#ifndef UNTITLED3_ITEM_H
+#define UNTITLED3_ITEM_H
 #include "Interior.h"
-#include "Player.h"
+#include "IObservable.h"
+
 class Item: Interior, public IObservable{
 public:
     OBJECT GetObject();
-    void interplay(Player& person);
-    ~Item(){};
 protected:
     OBJECT type;
 };
+
+
+#endif //UNTITLED3_ITEM_H

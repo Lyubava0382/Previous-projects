@@ -1,7 +1,14 @@
+//
+// Created by Любава on 13.11.2021.
+//
+
 #include "Lmonster.h"
-    Lmonster::Lmonster(){
+
+Lmonster::Lmonster(){
         health = 100;
         attack = 4;
+        observable = false;
+        observer = nullptr;
         type = LARGEMONSTER;
         goon = true;
         for (int i = 0; i < number_of_limbs; i++) {
@@ -9,7 +16,8 @@
         }
         assailable[rand() % number_of_limbs] = 1;
     }
-void Lmonster::fight(Player& hero){
+
+    void Lmonster::fight(Player& hero){
         int body;
         while (health > 0 && goon){
             char shot = fightView(LARGEMONSTER, hero.GetHealth(), this->health).GetWound();
@@ -30,7 +38,7 @@ void Lmonster::fight(Player& hero){
                     body = -1;
                     break;
             }
-            notify();
+            notify(__FUNCTION__, *this);
             if (goon && body >= 0 && assailable[body] == 1) {
                 hit(hero);
                 HitMonsterPrint(LARGEMONSTER, health, shot);
@@ -40,23 +48,18 @@ void Lmonster::fight(Player& hero){
             }
         }
     }
-
-private:
-    int assailable[3];
-    const int number_of_limbs = 3;
-
     void Lmonster::hit(Player& hero){
         this->health = 0;
         goon = false;
         hero.SetCoins(reward);
-        notify();
+        notify(__FUNCTION__, *this);
     }
     void Lmonster::miss(Player& hero){
         hero.SetHealth(hero.GetHealth() - attack);
         MissMonsterPrint(hero.GetHealth());
         if (hero.GetHealth() <= 0){
             goon = false;
-            notify();
+            notify(__FUNCTION__, *this);
             //Game Over
         }
     }

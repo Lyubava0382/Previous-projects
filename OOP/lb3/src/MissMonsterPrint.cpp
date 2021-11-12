@@ -1,5 +1,9 @@
+//
+// Created by Любава on 12.11.2021.
+//
+
 #include "MissMonsterPrint.h"
-MissMonsterPrint(int hero_health) {
+MissMonsterPrint::MissMonsterPrint(int hero_health) {
         std::cout << "You missed." <<std::endl;
         if (hero_health <= 0) {
             std::cout << "The enemy is stronger than you..." <<std::endl;
@@ -7,5 +11,4 @@ MissMonsterPrint(int hero_health) {
         else {
             std::cout << "Try again." <<std::endl;
         }
-
     }

@@ -1,7 +1,14 @@
+//
+// Created by Любава on 13.11.2021.
+//
+
 #include "Smonster.h"
-    Smonster::Smonster(){
+
+Smonster::Smonster(){
         health = 5;
         attack = 1;
+        observable = false;
+        observer = nullptr;
         type = SMALLMONSTER;
         goon = true;
         for (int i = 0; i < number_of_limbs; i++) {

@@ -1,5 +1,10 @@
+//
+// Created by Любава on 13.11.2021.
+//
+
 #include "FieldView.h"
-     FieldView::FieldView(Field& one, Player& character): GameField(one), hero(character){}
+
+FieldView::FieldView(Field& one, Player& character): GameField(one), hero(character){}
 
     void FieldView::PrintBorder() const {
         for (int i = 0; i < GameField.GetWidth() + 1; i++)
@@ -19,4 +24,3 @@
         }
         PrintBorder();
     }
-    FieldView::~FieldView(){};

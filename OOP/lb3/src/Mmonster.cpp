@@ -1,7 +1,13 @@
+//
+// Created by Любава on 13.11.2021.
+//
+
 #include "Mmonster.h"
-    Mmonster::Mmonster(){
+Mmonster::Mmonster(){
         health = 3;
         attack = 2;
+        observable = false;
+        observer = nullptr;
         type = MEDIUMMONSTER;
         goon = true;
         for (int i = 0; i < number_of_limbs; i++) {

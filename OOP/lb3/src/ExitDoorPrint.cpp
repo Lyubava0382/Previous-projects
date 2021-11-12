@@ -1,3 +1,7 @@
+//
+// Created by Любава on 13.11.2021.
+//
+
 #include "ExitDoorPrint.h"
 ExitDoorPrint::ExitDoorPrint(bool open){
         if (open) {

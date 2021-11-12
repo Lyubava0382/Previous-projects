@@ -1,6 +1,9 @@
-#include "CelluleView.h"
+//
+// Created by Любава on 13.11.2021.
+//
 
-     CelluleView::CelluleView(Cellule& one, Player& someone) {
+#include "CelluleView.h"
+CelluleView::CelluleView(Cellule& one, Player& someone) {
         switch (one.GetType())
         {
             case PASSABLE:
@@ -50,9 +53,6 @@
         }
         if (someone.GetLocal().x == one.GetPoint().x && someone.GetLocal().y == one.GetPoint().y) this->view = 'F';
     }
-
-
     char CelluleView::GetView() const {
         return this->view;
     }
-    CelluleView ::~CelluleView(){};

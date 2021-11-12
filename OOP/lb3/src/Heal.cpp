@@ -1,9 +1,19 @@
+//
+// Created by Любава on 12.11.2021.
+//
+
 #include "Heal.h"
-    Heal::Heal(){
-         type = FOOD;
+
+Heal::Heal(){
+        type = FOOD;
+        observable = false;
+        observer = nullptr;
     }
 
     void Heal::interplay(Player& person){
-        person.SetHealth(rand() % 10 + person.GetHealth());
-        notify();
+        int add_lives = rand() % 10;
+        if(add_lives + person.GetHealth() < 10)
+            person.SetHealth(add_lives + person.GetHealth());
+        else person.SetHealth(10);
+        notify(__FUNCTION__, *this);
     }

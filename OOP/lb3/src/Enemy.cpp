@@ -1,5 +1,10 @@
+//
+// Created by Любава on 13.11.2021.
+//
+
 #include "Enemy.h"
-void Enemy::fight(Player& hero){
+
+    void Enemy::fight(Player& hero){
         int body;
         while (health > 0 && goon){
             char shot = fightView(type, hero.GetHealth(), this->health).GetWound();
@@ -26,7 +31,7 @@ void Enemy::fight(Player& hero){
                     body = -1;
                     break;
             }
-            notify();
+            notify(__FUNCTION__, *this);
             if (goon && body >= 0 && assailable[body] == 1) {
                 if (type == MEDIUMMONSTER) assailable[body] = 0;
                 hit(hero);
@@ -37,13 +42,29 @@ void Enemy::fight(Player& hero){
             }
         }
     }
+    void Enemy::SetHealth(int a){
+        this->health = a;
+        notify(__FUNCTION__, *this);
+    }
+int Enemy::GetHealth() {
+    return this->health;
+}
+    int Enemy::GetReward(){
+        return this->reward;
+    }
+    bool Enemy::GetGoing(){
+        return this->goon;
+    }
+    int Enemy::GetLimb(int index){
+        return this->assailable[index];
+    }
     void Enemy::hit(Player& hero) {
         this->health = health - hero.GetAttack();
         if (health <= 0){
             goon = false;
             hero.SetCoins(reward);
         }
-        notify();
+        notify(__FUNCTION__, *this);
     }
     void Enemy::miss(Player& hero){
         hero.SetHealth(hero.GetHealth() - attack);
@@ -52,5 +73,5 @@ void Enemy::fight(Player& hero){
             goon = false;
             //Game Over
         }
-        notify();
+        notify(__FUNCTION__, *this);
     }

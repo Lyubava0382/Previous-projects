@@ -1,13 +1,19 @@
-#pragma once
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
-#include "structs.h"
+//
+// Created by Любава on 13.11.2021.
+//
+
+#ifndef UNTITLED3_SMONSTER_H
+#define UNTITLED3_SMONSTER_H
 #include "Enemy.h"
+
+
 class Smonster: public Enemy {
 public:
-    Smonster()
+    Smonster();
 private:
     int assailable[5];
     const int number_of_limbs = 5;
 };
+
+
+#endif //UNTITLED3_SMONSTER_H

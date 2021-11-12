@@ -1,8 +1,18 @@
+//
+// Created by Любава on 13.11.2021.
+//
+
 #include "Cellule.h"
-    Cellule::Cellule():position({0,0}), type(PASSABLE), occupy(NONE), nextstep(STOP), treasure(false){}
-    
-    Cellule::Cellule(const Cellule& other) : position(other.position), type(other.type),
+
+Cellule::Cellule():position({0,0}), type(PASSABLE), occupy(NONE), nextstep(STOP), treasure(false)
+    {observable = false;
+        observer = nullptr;
+    }
+
+Cellule::Cellule(const Cellule& other) : position(other.position), type(other.type),
                                     occupy(other.occupy), nextstep(other.nextstep), treasure(other.treasure){ // Конструктор копирования
+        observable = other.observable;
+        observer = other.observer;
     }
 
     Cellule& Cellule::operator = (const Cellule& other) { // Оператор присваивания копированием
@@ -12,15 +22,20 @@
             occupy = other.occupy;
             nextstep = other.nextstep;
             treasure = other.treasure;
+            observable = other.observable;
+            observer = other.observer;
         }
         return* this;
     }
-    Cellule::Cellule(Cellule&& other) { // Конструктор перемещения
+
+Cellule::Cellule(Cellule&& other) { // Конструктор перемещения
         std::swap(this->position, other.position);
         std::swap(this->type, other.type);
         std::swap(this->occupy, other.occupy);
         std::swap(this->nextstep, other.nextstep);
         std::swap(this->treasure, other.treasure);
+        std::swap(this->observable, other.observable);
+        std::swap(this->observer, other.observer);
     }
 
     Cellule& Cellule::operator=(Cellule&& other) { // Оператор присваивания перемещением
@@ -30,10 +45,11 @@
             std::swap(this->occupy, other.occupy);
             std::swap(this->nextstep, other.nextstep);
             std::swap(this->treasure, other.treasure);
+            std::swap(this->observable, other.observable);
+            std::swap(this->observer, other.observer);
         }
         return* this;
     }
-
 
     TYPE Cellule::GetType() {
         return this->type;
@@ -41,24 +57,25 @@
 
     void Cellule::SetType(TYPE t) {
         this->type = t;
-        notify();
+        notify(__FUNCTION__, *this);
     }
 
     void Cellule::SetPoint(int a, int b) {
         this->position.x = a;
         this->position.y = b;
-        notify();
+        notify(__FUNCTION__, *this);
     }
-    Coordinates Cellule::Cellule::GetPoint() {
+    Coordinates Cellule::GetPoint() {
         return this->position;
     }
-      OBJECT Cellule::GetObject() {
+
+    OBJECT Cellule::GetObject() {
         return this->occupy;
     }
 
     void Cellule::SetObject(OBJECT t) {
         this->occupy = t;
-        notify();
+        notify(__FUNCTION__, *this);
     }
     bool Cellule::GetKey() {
         return this->treasure;
@@ -66,7 +83,7 @@
 
     void Cellule::SetKey(bool rich) {
         this->treasure = rich;
-        notify();
+        notify(__FUNCTION__, *this);
     }
 
     GO Cellule::GetStep() {
@@ -75,5 +92,5 @@
 
     void Cellule::SetStep(GO step) {
         this->nextstep = step;
-        notify();
+        notify(__FUNCTION__, *this);
     }

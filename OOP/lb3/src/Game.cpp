@@ -1,14 +1,30 @@
+//
+// Created by Любава on 13.11.2021.
+//
+
 #include "Game.h"
-     Game::Game(){
+#include "Smonster.h"
+#include "Mmonster.h"
+#include "Lmonster.h"
+#include "Logger.h"
+Game::Game(){
         Player p1;
         person = p1;
-        Logger log(person);
-        person.SetKey(true);
-        Field game( 15, 10);
-        Start(game);
+        observable = false;
+        observer = nullptr;
+        Field game1( 15, 10);
+        game = game1;
+        //Logger log2(game.GetField()[1][1]);
+        Start();
     }
 
-    void Game::NextCondition(Cellule& locate, Field& game){
+    Field * Game::GetField() {
+        return &(this->game);
+    }
+    Player * Game::GetPlayer(){
+        return &(this->person);
+    }
+    void Game::NextCondition(Cellule& locate){
         const int number_of_directions = 3;
         GO array[number_of_directions + 1] = {RIGHT, DOWN, LEFT, UP};
         switch (locate.GetObject()) {
@@ -74,7 +90,7 @@
         }
     }
 
-    void Game::Step(GO side, Coordinates begin, int k, Field& game){
+    void Game::Step(GO side, Coordinates begin, int k){
         const int stride_length = 1;
         switch (side) {
             case RIGHT:
@@ -98,17 +114,17 @@
         }
     }
 
-    void Game::EnemyMove(Field& game)
+    void Game::EnemyMove()
     {
         for (int k = 0; k < game.GetMonsterCount(); k++) {
-            NextCondition(game.GetField()[ game.GetMonsters()[k].y][ game.GetMonsters()[k].x], game);
-            Step(game.GetField()[ game.GetMonsters()[k].y][ game.GetMonsters()[k].x].GetStep(),  game.GetMonsters()[k], k, game);
+            NextCondition(game.GetField()[ game.GetMonsters()[k].y][ game.GetMonsters()[k].x]);
+            Step(game.GetField()[ game.GetMonsters()[k].y][ game.GetMonsters()[k].x].GetStep(),  game.GetMonsters()[k], k);
         }
     }
 
-    void Game::GameMove(Field& game) {
+    void Game::GameMove() {
         Coordinates back;
-        EnemyMove(game);
+        EnemyMove();
         back = person.GetLocal();
         /*
          *
@@ -177,18 +193,20 @@
         }
     }
 
-    void Game::Start(Field& game) {
+    void Game::Start() {
+        Logger log(person);
+        person.SetKey(true);
+        Logger log2(game);
         srand(time(NULL));
         game.MakeInOut();
         game.MakeObjects();
         person.SetLocal(game.GetIn());
         game.MakeItems();
         game.MakeEnemies();
-        notify();
 
         FieldView(game, person).Print();
         for (int k = 0; k < 3; k++){
-            GameMove(game);
+            GameMove();
             FieldView(game, person).Print();
         }
     }

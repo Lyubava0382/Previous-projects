@@ -1,9 +1,15 @@
+//
+// Created by Любава on 13.11.2021.
+//
+
 #include "Field.h"
-#include <cmath>
-     Field::Field(int w = 10, int h = 10){
+
+Field::Field(int w, int h){
         width = w;
         height = h;
         monstercount = 0;
+        observable = false;
+        observer = nullptr;
         field = new Cellule*[height];
         for (int i = 0; i < height; i ++){
             field[i] = new Cellule[width];
@@ -11,9 +17,9 @@
                 field[i][j].SetPoint(j, i);
             }
         }
-        Monsters = new Coordinates[10];
+        Monsters = new Coordinates[100];
     }
-    Field::~Field() {
+Field::~Field() {
         for (int i = 0; i < height; i ++) {
             delete[] field[i];
         }
@@ -21,9 +27,10 @@
         delete[] Monsters;
     }
 
-
-    Field::Field(const Field &other) :  width(other.width), height(other.height),
-                                in(other.in), out(other.out), Monsters(new Coordinates[monstercount]), monstercount(other.monstercount), field(new Cellule*[height]) { // Конструктор копирования
+Field::Field(const Field &other) :  width(other.width), height(other.height),
+                                 in(other.in), out(other.out),  monstercount(other.monstercount), field(new Cellule*[height]),
+                                 teleports(other.teleports){ // Конструктор копирования
+        Monsters = new Coordinates[100];
         for (int i = 0; i < height; i ++) {
             field[i] = new Cellule[width];
             for (int j = 0; j < width; j ++){
@@ -33,9 +40,11 @@
         for (int k = 0; k < monstercount; k ++){
             Monsters[k] = other.Monsters[k];
         }
+        observable = other.observable;
+        observer = other.observer;
     }
 
-     Field & Field:: operator = (const Field &other) { // Оператор присваивания копированием
+    Field& Field::operator = (const Field &other) { // Оператор присваивания копированием
         if (this != &other){
             for (int i = 0; i < height; i ++){
                 delete[] field[i];
@@ -46,6 +55,9 @@
             height = other.height;
             in = other.in;
             out = other.out;
+            observable = other.observable;
+            observer = other.observer;
+            teleports = other.teleports;
             monstercount = other.monstercount;
             field = new Cellule* [height];
             for (int i = 0; i < height; i ++) {
@@ -54,7 +66,7 @@
                     field[i][j] = other.field[i][j];
                 }
             }
-            Monsters = new Coordinates[monstercount];
+            Monsters = new Coordinates[100];
             for (int k = 0; k < monstercount; k ++){
                 Monsters[k] = other.Monsters[k];
             }
@@ -62,7 +74,7 @@
         return *this;
     }
 
-    Field::Field(Field&& other){ // Конструктор перемещения
+Field::Field(Field&& other){ // Конструктор перемещения
         std::swap(this->width, other.width);
         std::swap(this->height, other.height);
         std::swap(this->in, other.in);
@@ -70,9 +82,12 @@
         std::swap(this->Monsters, other.Monsters);
         std::swap(this->monstercount, other.monstercount);
         std::swap(this->field, other.field);
+        std::swap(this->observable, other.observable);
+        std::swap(this->observer, other.observer);
+        std::swap(this->teleports, other.teleports);
     }
 
-    Field & Field:: operator=(Field&& other) { // Оператор присваивания перемещением
+    Field& Field::operator=(Field&& other) { // Оператор присваивания перемещением
         if (this != &other) {
             std::swap(this->width, other.width);
             std::swap(this->height, other.height);
@@ -81,10 +96,12 @@
             std::swap(this->Monsters, other.Monsters);
             std::swap(this->monstercount, other.monstercount);
             std::swap(this->field, other.field);
+            std::swap(this->observable, other.observable);
+            std::swap(this->observer, other.observer);
+            std::swap(this->teleports, other.teleports);
         }
         return *this;
     }
-    
     void Field::MakeInOut() {
         in = {rand() % width, rand() % height};
         field[in.y][in.x].SetType(IN);
@@ -95,11 +112,14 @@
             out = {rand() % width, rand() % height};
         }
         field[out.y][out.x].SetType(OUT);
-        notify();
+        notify(__FUNCTION__, *this);
     }
 
     Coordinates Field::GetIn() {
         return this->in;
+    }
+    Coordinates Field::GetOut() {
+        return this->out;
     }
 
     void Field::MakeObjects() {
@@ -113,9 +133,10 @@
                     field[any.y][any.x].SetType(NOPASS);
             }
         }
-        notify();
+        notify(__FUNCTION__, *this);
     }
-void Field::MakeItems() {
+
+    void Field::MakeItems() {
         double share_of_field_for_items;
         teleports.first = {rand() % width, rand() % height};
         while (field[teleports.first.y][teleports.first.x].GetType() != PASSABLE)
@@ -151,9 +172,8 @@ void Field::MakeItems() {
                 healing = {rand() % width, rand() % height};
             field[healing.y][healing.x].SetObject(FOOD);
         }
-        notify();
+        notify(__FUNCTION__, *this);
     }
-
     void Field::MakeEnemies() {
         Coordinates monster;
         int number_of_monsters;
@@ -187,7 +207,7 @@ void Field::MakeItems() {
                 field[monster.y][monster.x].SetObject(whichone);
             }
         }
-        notify();
+        notify(__FUNCTION__, *this);
     }
 
     bool Field::Access(Coordinates presentstate){
@@ -206,8 +226,8 @@ void Field::MakeItems() {
                 break;
         }
         if ((presentstate.x >= 0) && (presentstate.x < width) &&
-        (presentstate.y >= 0) && (presentstate.y < height) &&
-        (field[presentstate.y][presentstate.x].GetType() == PASSABLE) && (field[presentstate.y][presentstate.x].GetObject() == NONE))
+            (presentstate.y >= 0) && (presentstate.y < height) &&
+            (field[presentstate.y][presentstate.x].GetType() == PASSABLE) && (field[presentstate.y][presentstate.x].GetObject() == NONE))
             return true;
         else return false;
     }

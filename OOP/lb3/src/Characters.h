@@ -1,20 +1,20 @@
-#pragma once
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
-#include "structs.h"
+//
+// Created by Любава on 12.11.2021.
+//
+
+#ifndef UNTITLED3_CHARACTERS_H
+#define UNTITLED3_CHARACTERS_H
 #include "CharactersInterface.h"
-#include "IObservable.h"
 
 class Characters: CharactersInterface, public IObservable{
 public:
     OBJECT GetObject();
-    void SetHealth(int a);
     int GetHealth();
     int GetAttack();
-
 protected:
     int health;
     int attack;
     OBJECT type;
 };
+
+#endif //UNTITLED3_CHARACTERS_H

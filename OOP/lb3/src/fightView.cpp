@@ -1,8 +1,13 @@
+//
+// Created by Любава on 12.11.2021.
+//
+
 #include "fightView.h"
 fightView::fightView(OBJECT monster_size, int hero_health, int monster_health) {
         switch (monster_size)
         {
-            case SMALLMONSTER ... MEDIUMMONSTER:
+            case SMALLMONSTER:
+            case MEDIUMMONSTER:
                 std::cout << "Before you is a Monster child." <<std::endl;
                 std::cout << "Your HP:   " << hero_health << "\t\tHP of the monster:   " << monster_health << std::endl;
                 std::cout << "Where to shoot?" <<std::endl;
