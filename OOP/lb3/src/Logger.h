@@ -10,6 +10,7 @@
 #include "Heal.h"
 #include "Box.h"
 #include "Teleport.h"
+#include "LoggerView.h"
 class IObservable;
 
 class Logger {

@@ -3,7 +3,7 @@
 //
 
 #include "Field.h"
-
+#include "math.h"
 Field::Field(int w, int h){
         width = w;
         height = h;

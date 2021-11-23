@@ -1,4 +1,4 @@
-#include "LoggerView.h"
+
 #include "Logger.h"
 Logger::Logger(IObservable& address) {
         if (!outfile.is_open()) outfile.open("Logging.txt");
@@ -7,6 +7,7 @@ Logger::Logger(IObservable& address) {
         address.SetObservable(true);
         address.SetObserver(this);
         char actual_stream = LoggerView().SelectStream();
+        //char actual_stream = '2';
         switch (actual_stream) {
             case '2':
                 streams.first = true;
@@ -40,7 +41,7 @@ Logger::~Logger(){
 std::ostream& operator<< (std::ostream &out, Player &person)
 {
     out << "location    x: " << person.GetLocal().x<< "\ty: " << person.GetLocal().y <<
-        "\nKey:\t" << person.GetKey() << "\nCoins:\t" << person.GetCoins() << std::endl;
+        "\nKey:\t" << person.GetKey() << "\nCoins:\t" << person.GetCoins() << std::endl<< std::endl;
     return out;
 }
 std::ostream& operator<< (std::ostream &out, Enemy &monster)
@@ -51,16 +52,15 @@ std::ostream& operator<< (std::ostream &out, Enemy &monster)
         <<"\nShould the battle continue:\t"<<monster.GetGoing() << "\nAn array of monster vulnerabilities:";
     for (int i = 0; i < enemy_limbs_count; i++)
         out << "\n"<< monster.GetLimb(i) <<" ";
-    out << std::endl;
+    out << std::endl<< std::endl;
     return out;
-    int assailable[5];
 }
 std::ostream& operator<< (std::ostream &out, Cellule &cell)
 {
     out << "Type of cell:\t" << cell.GetType() <<"\nCell coordinate:\tx  "<<cell.GetPoint().x
         << "\ty: " <<cell.GetPoint().y << "\nType of object:\t"
         << cell.GetObject() <<"\nDoes the cage contain a treasure:\t"<<cell.GetKey()
-        << "\nDirection of the cell object:\t" << cell.GetStep() <<std::endl;
+        << "\nDirection of the cell object:\t" << cell.GetStep() <<std::endl<< std::endl;
     return out;
 }
 std::ostream& operator<< (std::ostream &out, Field &fieldgame)
@@ -71,7 +71,7 @@ std::ostream& operator<< (std::ostream &out, Field &fieldgame)
         << "\nNumber of monsters:\t" << fieldgame.GetMonsterCount() << "\nMonsters coordinates";
     for (int i = 0; i < fieldgame.GetMonsterCount(); i++)
         out << "\n"<< i << ".\tx:  "<< fieldgame.GetMonsters()[i].x << "\ty: " <<fieldgame.GetMonsters()[i].y ;
-    out << std::endl;
+    out << std::endl<< std::endl;
     return out;
     //Cellule** field; &&&
 
@@ -79,103 +79,103 @@ std::ostream& operator<< (std::ostream &out, Field &fieldgame)
 std::ostream& operator<< (std::ostream &out, Game &presentgame)
 {
     out << "Person address:\t" << presentgame.GetPlayer() <<
-        "\nField address:\t" << presentgame.GetField()<<std::endl;
+        "\nField address:\t" << presentgame.GetField()<<std::endl<< std::endl;
     return out;
 }
 std::ostream& operator<< (std::ostream &out, Heal &food)
 {
-    out << "Type:\t" << food.GetObject() << std::endl;
+    out << "Type:\t" << food.GetObject() << std::endl<< std::endl;
     return out;
 }
 std::ostream& operator<< (std::ostream &out,  Box &inbox)
 {
-    out << "Type:\t" << inbox.GetObject() << "\nFull:\t" << inbox.GetFull()<<std::endl;
+    out << "Type:\t" << inbox.GetObject() << "\nFull:\t" << inbox.GetFull()<<std::endl<< std::endl;
     return out;
 }
 std::ostream& operator<< (std::ostream &out, Teleport &teleports)
 {
     out << "Type:\t" << teleports.GetObject() << "\nFirst teleport coordination:\tx:  "
-        << teleports.GetFirstPlace().x<< "\ty: " << teleports.GetSecondPlace().y<<std::endl;
+        << teleports.GetFirstPlace().x<< "\ty: " << teleports.GetSecondPlace().y<<std::endl<< std::endl;
     return out;
 }
 
 void Logger::update(std::string namefunc, Player &person){
     if (streams.first) {
-        std::cout << namefunc << ":\n";
+        std::cout <<"Player::\t" << namefunc << ":\n";
         std::cout << person;
     }
     if (streams.second){
-        outfile << namefunc << ":\n";
+        outfile <<"Player::\t"<< namefunc << ":\n";
         outfile << person;
     }
 }
 void Logger::update(std::string namefunc, Enemy &monster) {
     if (streams.first) {
-        std::cout << namefunc << ":\n";
+        std::cout <<"Enemy::\t"<< namefunc << ":\n";
         std::cout << monster;
     }
     if (streams.second){
-        outfile << namefunc << ":\n";
+        outfile <<"Enemy::\t"<< namefunc << ":\n";
         outfile << monster;
     }
 }
 void Logger::update(std::string namefunc, Cellule &cell) {
     if (streams.first) {
-        std::cout << namefunc << ":\n";
+        std::cout <<"Cellule::\t"<< namefunc << ":\n";
         std::cout << cell;
     }
     if (streams.second){
-        outfile << namefunc << ":\n";
+        outfile <<"Cellule::\t"<< namefunc << ":\n";
         outfile << cell;
     }
 }
 void Logger::update(std::string namefunc, Field &fieldgame) {
     if (streams.first) {
-        std::cout << namefunc << ":\n";
+        std::cout <<"Field::\t"<< namefunc << ":\n";
         std::cout << fieldgame;
     }
     if (streams.second){
-        outfile << namefunc << ":\n";
+        outfile <<"Field::\t"<< namefunc << ":\n";
         outfile << fieldgame;
     }
 }
 void Logger::update(std::string namefunc, Game &presentgame) {
     if (streams.first) {
-        std::cout << namefunc << ":\n";
+        std::cout <<"Game::\t"<< namefunc << ":\n";
         std::cout << presentgame;
     }
     if (streams.second){
-        outfile << namefunc << ":\n";
+        outfile <<"Game::\t"<< namefunc << ":\n";
         outfile << presentgame;
     }
 }
 void Logger::update(std::string namefunc, Heal &food){
     if (streams.first) {
-        std::cout << namefunc << ":\n";
+        std::cout <<"Heal::\t"<< namefunc << ":\n";
         std::cout << food;
     }
     if (streams.second){
-        outfile << namefunc << ":\n";
+        outfile <<"Heal::\t"<< namefunc << ":\n";
         outfile << food;
     }
 }
 void Logger::update(std::string namefunc, Box &inbox) {
     if (streams.first) {
-        std::cout << namefunc << ":\n";
+        std::cout <<"Box::\t"<< namefunc << ":\n";
         std::cout << inbox;
     }
     if (streams.second){
-        outfile << namefunc << ":\n";
+        outfile <<"Box::\t"<< namefunc << ":\n";
         outfile << inbox;
     }
 }
 void Logger::update(std::string namefunc, Teleport &teleports) {
     if (streams.first) {
-        std::cout << namefunc << ":\n";
+        std::cout <<"Teleport::\t"<< namefunc << ":\n";
         std::cout << teleports;
     }
     if (streams.second){
-        outfile << namefunc << ":\n";
+        outfile <<"Teleport::\t"<< namefunc << ":\n";
         outfile << teleports;
     }
 }
