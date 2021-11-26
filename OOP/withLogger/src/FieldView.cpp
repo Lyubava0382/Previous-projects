@@ -1,6 +1,3 @@
-//
-// Created by Любава on 13.11.2021.
-//
 
 #include "FieldView.h"
 

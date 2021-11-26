@@ -1,6 +1,3 @@
-//
-// Created by Любава on 12.11.2021.
-//
 
 #include "HitMonsterPrint.h"
 HitMonsterPrint::HitMonsterPrint(OBJECT monster_size, int monster_health, int shot_limb) {

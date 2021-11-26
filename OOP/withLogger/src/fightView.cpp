@@ -1,6 +1,3 @@
-//
-// Created by Любава on 12.11.2021.
-//
 
 #include "fightView.h"
 fightView::fightView(OBJECT monster_size, int hero_health, int monster_health) {
