@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/local/Documents/untitled6/cmake-build-debug/Info.h
+iostream
+-
+cstdlib
+-
+ctime
+-
+string
+-
+fstream
+-
+
+C:/Users/local/Documents/untitled6/cmake-build-debug/Testing/Views/GameView.cpp
+GameView.h
+C:/Users/local/Documents/untitled6/cmake-build-debug/Testing/Views/GameView.h
+
+C:/Users/local/Documents/untitled6/cmake-build-debug/Testing/Views/GameView.h
+../../Info.h
+C:/Users/local/Documents/untitled6/cmake-build-debug/Info.h
+
