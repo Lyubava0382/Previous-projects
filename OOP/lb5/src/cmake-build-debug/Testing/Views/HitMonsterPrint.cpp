@@ -3,7 +3,7 @@
 HitMonsterPrint::HitMonsterPrint(OBJECT monster_size, int monster_health, int shot_limb) {
     if (monster_health <= 0) {
         std::cout << "The shot was fatal." << std::endl;
-        std::cout << "Who would have thought that such a giant had a weak point?\n" << std::endl;
+        std::cout << "Who would have thought that such opponent had a weak point?\n" << std::endl;
     }
     else {
         std::cout << "You hurt him! Keep it up!\n" << std::endl;

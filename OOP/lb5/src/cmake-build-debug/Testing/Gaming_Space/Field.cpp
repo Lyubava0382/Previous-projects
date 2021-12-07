@@ -180,41 +180,32 @@ void Field::MakeItems(int portals_count, int box_count, int heal_count) {
     }
     notify(*this, __FUNCTION__);
 }
-void Field::MakeEnemies(int countS, int countM, int countL) {
+void Field::MakeEnemies(int * array, int count) {
     Coordinates monster;
     int number_of_monsters;
-    Enemy* enemy;
-    const int monster_categories = 3;
-    OBJECT whichone;
+    const int monster_categories = count;
     for (int monster_creation_stage = 0; monster_creation_stage < monster_categories; monster_creation_stage++){
-        switch (monster_creation_stage) {
-            case 0 :{
-                number_of_monsters = countS;
-                whichone = SMALLMONSTER;
-                enemy = new Smonster();
-                break;
-            }
-            case 1:{
-                number_of_monsters = countM;
-                whichone = MEDIUMMONSTER;
-                enemy = new Mmonster();
-                break;
-            }
-            case 2:{
-                number_of_monsters = countL;
-                whichone = LARGEMONSTER;
-                enemy = new Lmonster();
-            }
-                break;
-        }
+       if (monster_creation_stage >=0) number_of_monsters = array[monster_creation_stage];
         for (int i=0; i < number_of_monsters; i++) {
             monster = {rand() % width, rand() % height};
             while (field[monster.y][monster.x].GetType() != PASSABLE || field[monster.y][monster.x].GetObject() != NONE)
                 monster = {rand() % width, rand() % height};
-            enemy->SetStep(START);
+
+            if (monster_creation_stage == 0) {
+                field[monster.y][monster.x].SetObject(SMALLMONSTER);
+                field[monster.y][monster.x].SetObj(new Smonster());
+            }
+            else if (monster_creation_stage == 1) {
+                field[monster.y][monster.x].SetObject(MEDIUMMONSTER);
+                field[monster.y][monster.x].SetObj(new Mmonster());
+            }
+            else if (monster_creation_stage == 2) {
+                field[monster.y][monster.x].SetObject(LARGEMONSTER);
+                field[monster.y][monster.x].SetObj(new Lmonster());
+            }
+            dynamic_cast<Enemy*>(field[monster.y][monster.x].GetObj())->SetStep(START);
             Monsters[monstercount++] = {monster.x, monster.y};
-            field[monster.y][monster.x].SetObject(whichone);
-            field[monster.y][monster.x].SetObj(enemy);
+            field[monster.y][monster.x].SetObj(dynamic_cast<Enemy*>(field[monster.y][monster.x].GetObj()));
         }
         }
 
@@ -222,10 +213,16 @@ void Field::MakeEnemies(int countS, int countM, int countL) {
 }
 
 bool Field::Access(Coordinates state){
-    if ((state.x >= 0) && (state.x < width) &&
-        (state.y >= 0) && (state.y < height) &&
-        (field[state.y][state.x].GetType() == PASSABLE) && (field[state.y][state.x].GetObject() == NONE))
+    if (WithinField(state) && (field[state.y][state.x].GetObject() == NONE))
         return true;
+    else return false;
+}
+
+bool Field::WithinField(Coordinates state){
+    if ((state.x >= 0) && (state.x < width) &&
+        (state.y >= 0) && (state.y < height)&&
+        (field[state.y][state.x].GetType() != NOPASS))
+    return true;
     else return false;
 }
 

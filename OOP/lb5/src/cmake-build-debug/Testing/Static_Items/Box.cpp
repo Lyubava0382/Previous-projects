@@ -8,11 +8,14 @@ Box::Box(bool filled): full(filled){
 }
 
 void Box::interplay(Player& person){
-    if (full && person.GetCoins() > 0){
-        person.SetKey(true);
-        person.SetCoins(-1);
+    if (person.GetCoins() > 0) {
         removing = true;
+        if (full){
+            person.SetKey(true);
+            person.SetCoins(-1);
+        }
     }
+
     ItemView().BoxPrint(removing,full);
     notify(*this, __FUNCTION__);
 }

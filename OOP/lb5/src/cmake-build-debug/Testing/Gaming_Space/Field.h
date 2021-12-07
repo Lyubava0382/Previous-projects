@@ -20,7 +20,7 @@ public:
     Coordinates GetOut();
     void MakeObjects(int chance = 0);
     void MakeItems(int portals_count = 1, int box_count = 3, int heal_count = 3);
-    void MakeEnemies(int countS = 3, int countM = 2, int countL = 1);
+    void MakeEnemies(int * array, int count);
     bool Access(Coordinates presentstate);
     int GetHeight();
     int GetWidth();
@@ -29,6 +29,7 @@ public:
     std::pair <Coordinates, Coordinates> GetTeleports();
     Coordinates* GetMonsters();
     void SetMonsters(int k, Coordinates m);
+    bool WithinField(Coordinates state);
 private:
     Cellule** field;
     int width;

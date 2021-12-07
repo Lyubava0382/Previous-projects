@@ -7,9 +7,8 @@
 
 class NumberOfEnemiesInterface{
 public:
-    virtual int GetScount() = 0;
-    virtual int GetMcount() = 0;
-    virtual int GetLcount() = 0;
+    virtual int * GetMonsterArray(int sizeoffield) = 0;
+    virtual int GetCount() = 0;
 };
 
 #endif //UNTITLED6_NUMBEROFENEMIESINTERFACE_H

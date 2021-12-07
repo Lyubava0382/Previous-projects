@@ -11,6 +11,7 @@ Lmonster::Lmonster(){
     observer = nullptr;
     type = LARGEMONSTER;
     goon = true;
+    assailable = new int[number_of_limbs];
     for (int i = 0; i < number_of_limbs; i++) {
         assailable[i] = 0;
     }

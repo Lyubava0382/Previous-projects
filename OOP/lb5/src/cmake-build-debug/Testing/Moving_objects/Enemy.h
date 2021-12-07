@@ -30,7 +30,7 @@ protected:
     int health;
     int attack;
     OBJECT type;
-    int assailable[5];
+    int *assailable;
     bool goon;
     GO nextstep;
 };

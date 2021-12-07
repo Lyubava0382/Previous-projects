@@ -77,6 +77,7 @@ void Cellule::SetObject(OBJECT t) {
 
 void Cellule::SetObj(Interior* t){
     this->object = t;
+    notify(*this, __FUNCTION__);
 }
 
 

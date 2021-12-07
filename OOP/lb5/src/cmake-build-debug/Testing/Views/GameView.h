@@ -15,12 +15,17 @@ public:
     bool Goon();
     void LeaveGame();
     void GameOver();
+    void ReadInstruction();
 private:
     char right;
     char left;
     char up;
     char down;
     bool going;
+    const char * exit = "x";
+    const char * menu = "m";
+    const char * instruction = "?";
+    const char * change_keys = "k";
 };
 
 

@@ -15,5 +15,5 @@ void ExitDoorPrint::HealthPrint(){
 }
 void ExitDoorPrint::OpenPrint(){
     std::cout << "--------CONGRATULATION--------\n"
-                 "You completed the game ;)" << std::endl;
+                 "   You completed the game ;)" << std::endl;
 }

@@ -10,6 +10,7 @@ Mmonster::Mmonster(){
     observer = nullptr;
     type = MEDIUMMONSTER;
     goon = true;
+    assailable = new int[number_of_limbs];
     for (int i = 0; i < number_of_limbs; i++) {
         assailable[i] = 1;
     }
@@ -21,44 +22,6 @@ Mmonster::Mmonster(){
     assailable[random] = 0;
 }
 
-void Mmonster::fight(Player& hero){
-    int body;
-    while (health > 0 && goon){
-        char shot = fightView(type, hero.GetHealth(), this->health).GetWound();
-        switch (shot) {
-            case '0':
-                goon = false;
-                break;
-            case '1':
-                body = 0;
-                break;
-            case '2':
-                body = 1;
-                break;
-            case '3':
-                body = 2;
-                break;
-            case '4':
-                body = 3;
-                break;
-            case '5':
-                body = 4;
-                break;
-            default:
-                body = -1;
-                break;
-        }
-        notify(*this, __FUNCTION__);
-        if (goon && body >= 0 && assailable[body] == 1) {
-            assailable[body] = 0;
-            hit(hero);
-            HitMonsterPrint(type, health, shot);
-        }
-        else {
-            if (goon) miss(hero);
-        }
-    }
-}
 void Mmonster::moving(Cellule& locate, Field& game, Player& person){
     const int number_of_directions = 4;
     GO array[number_of_directions] = {RIGHT, DOWN, LEFT, UP};

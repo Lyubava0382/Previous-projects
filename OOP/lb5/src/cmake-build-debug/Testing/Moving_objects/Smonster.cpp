@@ -11,6 +11,7 @@ Smonster::Smonster(){
     observer = nullptr;
     type = SMALLMONSTER;
     goon = true;
+    assailable = new int[number_of_limbs];
     for (int i = 0; i < number_of_limbs; i++) {
         assailable[i] = 1;
     }
@@ -20,47 +21,6 @@ Smonster::Smonster(){
         random = rand() % number_of_limbs;
     }
     assailable[random] = 0;
-}
-void Smonster::fight(Player& hero){
-    int body;
-    if (dynamic_cast<Lmonster*>(this)) {
-        dynamic_cast<Lmonster*>(this)->fight(hero);
-        return;
-    }
-    while (health > 0 && goon){
-        char shot = fightView(type, hero.GetHealth(), this->health).GetWound();
-        switch (shot) {
-            case '0':
-                goon = false;
-                break;
-            case '1':
-                body = 0;
-                break;
-            case '2':
-                body = 1;
-                break;
-            case '3':
-                body = 2;
-                break;
-            case '4':
-                body = 3;
-                break;
-            case '5':
-                body = 4;
-                break;
-            default:
-                body = -1;
-                break;
-        }
-        notify(*this, __FUNCTION__);
-        if (goon && body >= 0 && assailable[body] == 1) {
-            hit(hero);
-            HitMonsterPrint(type, health, shot);
-        }
-        else {
-            if (goon) miss(hero);
-        }
-    }
 }
 void Smonster::moving(Cellule& locate, Field& game, Player& person){
     const int number_of_directions = 4;

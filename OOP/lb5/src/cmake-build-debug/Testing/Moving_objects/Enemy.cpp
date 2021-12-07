@@ -10,14 +10,43 @@ void Enemy::fight(Player& hero){
         dynamic_cast<Lmonster*>(this)->fight(hero);
         return;
     }
-     if (dynamic_cast<Mmonster*>(this)) {
-        dynamic_cast<Mmonster*>(this)->fight(hero);
-        return;
-    }
-    if (dynamic_cast<Smonster*>(this)) {
-        dynamic_cast<Smonster*>(this)->fight(hero);
-        return;
-    }
+        int body;
+        while (health > 0 && goon){
+            char shot = fightView(type, hero.GetHealth(), this->health).GetWound();
+            switch (shot) {
+                case '0':
+                    goon = false;
+                    break;
+                case '1':
+                    body = 0;
+                    break;
+                case '2':
+                    body = 1;
+                    break;
+                case '3':
+                    body = 2;
+                    break;
+                case '4':
+                    body = 3;
+                    break;
+                case '5':
+                    body = 4;
+                    break;
+                default:
+                    body = -1;
+                    break;
+            }
+            notify(*this, __FUNCTION__);
+            if (goon && body >= 0 && assailable[body] == 1) {
+                if (type == MEDIUMMONSTER) assailable[body] = 0;
+                hit(hero);
+                HitMonsterPrint(type, health, shot);
+            }
+            else {
+                if (goon) miss(hero);
+            }
+        }
+
 }
 void Enemy::SetHealth(int a){
     this->health = a;

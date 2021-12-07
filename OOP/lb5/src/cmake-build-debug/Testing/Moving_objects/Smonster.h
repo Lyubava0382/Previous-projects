@@ -14,7 +14,6 @@ public:
     void moving(Cellule& locate, Field& game, Player& person);
     void fight(Player& hero);
 private:
-    int assailable[5];
     const int number_of_limbs = 5;
 };
 

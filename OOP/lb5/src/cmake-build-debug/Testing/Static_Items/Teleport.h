@@ -15,7 +15,6 @@ public:
     void interplay(Player& person);
     Coordinates GetFirstPlace();
     Coordinates GetSecondPlace();
-    bool remove();
 private:
     Coordinates firstplace;
     Coordinates secondplace;

@@ -58,6 +58,7 @@ std::ostream& operator<< (std::ostream &out, Enemy &monster)
     const int enemy_limbs_count = 5;
     out << "Type of the monster:\t"<< monster.GetObject() << "\nHP:\t" << monster.GetHealth()
         << "\nAttack:\t"<< monster.GetAttack()<<"\nVictory reward:\t" << monster.GetReward()
+            <<"\nNext step:\t on x:  " << monster.GetStep().x << "\ton y: " << monster.GetStep().y
         <<"\nShould the battle continue:\t"<<monster.GetGoing() << "\nAn array of monster vulnerabilities:";
     for (int i = 0; i < enemy_limbs_count; i++)
         out << "\n"<< monster.GetLimb(i) <<" ";
@@ -67,7 +68,8 @@ std::ostream& operator<< (std::ostream &out, Enemy &monster)
 std::ostream& operator<< (std::ostream &out, Cellule &cell)
 {
     out << "Type of cell:\t" << cell.GetType() <<"\nCell coordinate:\tx  "<<cell.GetPoint().x
-        << "\ty: " <<cell.GetPoint().y << "\nType of object:\t" <<std::endl<< std::endl;
+        << "\ty: " <<cell.GetPoint().y << "\nType of object:\t" <<std::endl
+          <<"Address of the object:"<<cell.GetObj()  <<std::endl << std::endl;
     return out;
 }
 std::ostream& operator<< (std::ostream &out, Field &fieldgame)
@@ -80,23 +82,26 @@ std::ostream& operator<< (std::ostream &out, Field &fieldgame)
         out << "\n"<< i << ".\tx:  "<< fieldgame.GetMonsters()[i].x << "\ty: " <<fieldgame.GetMonsters()[i].y ;
     out << std::endl<< std::endl;
     return out;
-    //Cellule** field; &&&
 
 }
 std::ostream& operator<< (std::ostream &out, Heal &food)
 {
-    out << "Type:\t" << food.GetObject() << std::endl<< std::endl;
+    out << "Type:\t" << food.GetObject() << std::endl <<
+    "Is the item disappearing:\t"<< food.remove() <<std::endl<< std::endl;
     return out;
 }
 std::ostream& operator<< (std::ostream &out,  Box &inbox)
 {
-    out << "Type:\t" << inbox.GetObject() << "\nFull:\t" << inbox.GetFull()<<std::endl<< std::endl;
+    out << "Type:\t" << inbox.GetObject() << "\nFull:\t" << inbox.GetFull()<<std::endl<<
+    "Is the item disappearing:\t"<< inbox.remove() <<std::endl<< std::endl;
     return out;
 }
 std::ostream& operator<< (std::ostream &out, Teleport &teleports)
 {
     out << "Type:\t" << teleports.GetObject() << "\nFirst teleport coordination:\tx:  "
-        << teleports.GetFirstPlace().x<< "\ty: " << teleports.GetSecondPlace().y<<std::endl<< std::endl;
+        << teleports.GetFirstPlace().x<< "\ty: " << teleports.GetSecondPlace().y<<std::endl<<
+         "Is the item disappearing:\t"<< teleports.remove() <<
+       std::endl<< std::endl;
     return out;
 }
 void Logger::update(Player &person, std::string namefunc){
