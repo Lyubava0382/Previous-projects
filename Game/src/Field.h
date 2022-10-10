@@ -14,7 +14,7 @@
 #include "Cellule.h"
 class Field {
 public:
-    Field(int w = 10, int h = 10);
+    Field(int w = 10, int h = 10,double cnt_wll = 15, double itm_k = 0.025, double itm_b = 0.05);
     ~Field();
 
     Field(const Field &other);

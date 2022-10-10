@@ -22,6 +22,9 @@ public:
     bool Goon();
     void LeaveGame();
     void ReadInstruction();
+    void GameOver(double sec);
+    void NeedKey();
+    void Key(bool key);
 private:
     char right;
     char left;

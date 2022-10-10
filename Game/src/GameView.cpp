@@ -83,3 +83,21 @@ void GameView::ReadInstruction(){
 bool GameView::Goon(){
     return this->going;
 }
+
+void GameView::NeedKey(){
+ std::cout << "You didn't find all the keys." << std::endl;
+}
+
+void GameView::Key(bool key){
+    if (key){
+        std::cout << "The key is in the treasure." << std::endl;
+    } else {
+        std::cout << "Oops! .. It's empty." << std::endl;
+    }
+
+}
+
+void GameView::GameOver(double sec){
+    std::cout << "Congratulations! you have completed the game. Your score:"
+    << sec << std::endl;
+}

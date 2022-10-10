@@ -1,8 +1,7 @@
 
 #include "Field.h"
-#include <fstream>
 #include <cmath>
-Field::Field(int w, int h){
+Field::Field(int w, int h, double cnt_wll, double itm_k, double itm_b){
     width = w;
     height = h;
     field = new Cellule*[height];
@@ -12,13 +11,10 @@ Field::Field(int w, int h){
             field[i][j].SetPoint(j, i);
         }
     }
-    std::ifstream file("..\\src\\field.txt");
-    if (file){
-        file >> count_wall;
-        file >> item_key;
-        file >> item_box;
-        file.close();
-    }
+    count_wall = cnt_wll;
+    item_key = itm_k;
+    item_box = itm_b;
+
 }
 Field::~Field() {
     for (int i = 0; i < height; i ++) {

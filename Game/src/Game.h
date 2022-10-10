@@ -23,7 +23,7 @@ public:
     void EnemyMove(Field& game);
     void GameMove(Field& game);
     void Start(Field& game);
-    void Over();
+    void Over(bool breakEnd);
     bool GameMove(Coordinates motion);
 private:
     Field game;

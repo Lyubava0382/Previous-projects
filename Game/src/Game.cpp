@@ -1,22 +1,33 @@
-//
-// Created by Serg on 10.10.2022.
-//
+
+#include <fstream>
 #include "Game.h"
 Game::Game(){
     Player person;
     game_end = false;
-    Field game1( 15, 10);
+    double cnt_w,itm_k,itm_b;
+    int width, height;
+    std::ifstream file("..\\src\\field.txt");
+    if (file){
+        file >> width;
+        file >> height;
+        file >> cnt_w;
+        file >> itm_k;
+        file >> itm_b;
+        file.close();
+    }
+    Field game1( width, height, cnt_w,itm_k, itm_b);
     game = game1;
     game_interface = GameView();
     Start(game);
 }
 
 
-void Game::Over(){
+void Game::Over(bool breakEnd){
     game_end = true;
     time(&end);
-    //Вывести конеч игры
     timeout = difftime(end,start);
+    if (breakEnd);
+        else game_interface.GameOver(timeout);
 }
 
 
@@ -32,7 +43,7 @@ void Game::Start(Field& game) {
     while(game_interface.Goon() && !game_end){
         Coordinates motion = game_interface.GameInput();
         if (motion.x == 0 && motion.y == 0) {
-           Over();
+           Over(true);
             return;
         }
         if (GameMove(motion)) FieldView(game, person).Print();
@@ -46,10 +57,10 @@ bool Game::GameMove(Coordinates motion) {
     switch (game.GetField()[person.GetLocal().y][person.GetLocal().x].GetType()) {
         case OUT: {
             if (person.Done()){
-                Over();
+                Over(false);
                 return false;
             }
-            else ;//Вывести что не достаточчно ключей
+            else game_interface.NeedKey();
         }
             break;
         case PASSABLE: {
@@ -57,9 +68,9 @@ bool Game::GameMove(Coordinates motion) {
             if (game.GetField()[person.GetLocal().y][person.GetLocal().x].GetObject() == BOX){
                 if (game.GetField()[person.GetLocal().y][person.GetLocal().x].GetKey()){
                     person.Key();
-                    //Вывести ключ есьт
+                    game_interface.Key(true);
                 } else {
-                   //Вывести тут нет ключа std::cout << "No!" << std::endl;
+                    game_interface.Key(false);
                 }
                 game.GetField()[person.GetLocal().y][person.GetLocal().x].SetObject(NONE);
             }
