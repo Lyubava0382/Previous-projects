@@ -13,13 +13,14 @@ GameView::GameView(){
 void GameView::PrintMenu(){
     std::cout << "Hi, stranger... Welcome to the wonderful game\nRead this instruction carefully\n"<<
               "To read the detailed rules, click - [" << *instruction<< "]\n"
-                                                                        "__________________________________________\n"
-                                                                        "To move around the map, use these keys:\n"
-                                                                        "Up - [" << up << "]\nLeft - [" << left<< "]"
-                                                                                                                  "\nDown - [" << down<< "]\nRight - [" << right<< "]\n"
-                                                                                                                                                                   "__________________________________________\n"
-                                                                                                                                                                   "To exit the game, click - [" << *exit<< "]\n"
-                                                                                                                                                                                                            "To change the control keys, press - []\n"
+                 "To leave the game press [" << *exit<< "]\n"
+                 "To read the menu press [" << *menu<< "]\n"
+                 "To print the records press [" << *records<< "]\n"
+                 "__________________________________________\n"
+                 "To move around the map, use these keys:\n"
+                  "Up - [" << up << "]\nLeft - [" << left<< "]"
+                  "\nDown - [" << down<< "]\nRight - [" << right<< "]\n"
+                  "To change the control keys, press - []\n"
                                                                                                                                                                                                                                                                       "To read the menu again, press - [" << *menu << "]\n";
     //GameInput();
 }
@@ -71,12 +72,9 @@ void GameView::LeaveGame(){
 
 void GameView::ReadInstruction(){
     std::cout << "\tYou appear at the entrance cage. Your goal is to find a way out. \n\n"
-                 "However, you can open the exit door only if you have a {key} with you.\n"
-                 "The {key} is hidden in one of the chests located on the field. \n"
-                 "You can open the {chest} (and pick up the key, or leave with nothing) by paying one coin.\n"
-                 "You can earn coins by fighting {monsters} along the way.\n"
-                 "On the field, you can also pick up {food} that instantly heals health by a random amount.\n"
-                 "You can use {portals} to move around the field faster or bypass {monsters}.\n\n"
+                 "However, you can open the exit door only if you have all {keys} with you.\n"
+                 "The {keys} are hidden in some chests located on the field. \n"
+                 "You can open the {chest} and pick up the key, or leave with nothing.\n"
                  "\tGood luck!\n";
 }
 

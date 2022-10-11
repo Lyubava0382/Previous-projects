@@ -18,10 +18,6 @@
 class Game {
 public:
     explicit Game();
-    void NextCondition(Cellule& locate, Field& game);
-    void Step(GO side, Coordinates begin, int k, Field& game);
-    void EnemyMove(Field& game);
-    void GameMove(Field& game);
     void Start(Field& game);
     void Over(bool breakEnd);
     bool GameMove(Coordinates motion);

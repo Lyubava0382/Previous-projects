@@ -32,7 +32,6 @@ void Game::Over(bool breakEnd){
 
 
 void Game::Start(Field& game) {
-    srand(time(NULL));
     game.MakeInOut();
     game.MakeObjects();
     person.SetLocal(game.GetIn().x,game.GetIn().y);

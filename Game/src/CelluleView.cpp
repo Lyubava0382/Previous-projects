@@ -1,6 +1,3 @@
-//
-// Created by Serg on 10.10.2022.
-//
 
 #include "CelluleView.h"
 

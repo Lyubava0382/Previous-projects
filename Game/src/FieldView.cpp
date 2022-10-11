@@ -11,7 +11,7 @@ void FieldView::PrintBorder() const {
 void FieldView::Print() const {
     PrintBorder();
     int numberY_1 = 0;
-    int numberY = round(round(GameField.GetHeight()/3));
+    int numberY = round(round(GameField.GetHeight()/3)/2);
     int numberX_1 = 0;
     int numberX = round(round(GameField.GetWidth()/3)/2);
     if (hero.GetLocal().x - numberX > 0){

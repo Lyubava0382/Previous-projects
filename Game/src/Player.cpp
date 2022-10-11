@@ -6,7 +6,7 @@
 Player::Player() {
     location = {0,0};
     keys = 0;
-    keyCount = 1;
+    keyCount = 0;
     type = NONE;
 }
 

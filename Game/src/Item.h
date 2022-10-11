@@ -14,7 +14,6 @@
 class Item: Interior{
 public:
     virtual OBJECT GetObject() = 0;
-    virtual void interplay(Player& person) = 0;
     virtual ~Item(){};
 };
 
