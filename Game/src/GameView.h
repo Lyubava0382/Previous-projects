@@ -31,10 +31,10 @@ private:
     char up;
     char down;
     bool going;
-    const char * exit = "x";
-    const char * menu = "m";
-    const char * instruction = "?";
-    const char * records = "r";
+    char exit;
+    char menu;
+    char instruction;
+    char records;
 };
 
 

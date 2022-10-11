@@ -12,7 +12,6 @@
 #include "structs.h"
 #include "Player.h"
 #include "Field.h"
-#include "Box.h"
 #include "FieldView.h"
 #include "GameView.h"
 class Game {

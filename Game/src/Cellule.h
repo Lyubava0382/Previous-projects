@@ -27,8 +27,6 @@ public:
     void SetObject(OBJECT t) final;
     bool GetKey() final;
     void SetKey(bool rich) final;
-    GO GetStep() final;
-    void SetStep(GO step) final;
 
 private:
     Coordinates position{};

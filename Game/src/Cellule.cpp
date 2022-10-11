@@ -69,11 +69,3 @@ bool Cellule::GetKey() {
 void Cellule::SetKey(bool rich) {
     this->treasure = rich;
 }
-
-GO Cellule::GetStep() {
-    return this->nextstep;
-}
-
-void Cellule::SetStep(GO step) {
-    this->nextstep = step;
-}

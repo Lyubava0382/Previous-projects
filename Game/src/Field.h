@@ -33,8 +33,6 @@ public:
 
     int MakeItems();
 
-    bool Access(Coordinates presentstate);
-
     int GetHeight();
 
     int GetWidth();

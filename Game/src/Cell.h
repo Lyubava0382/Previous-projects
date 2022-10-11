@@ -19,8 +19,6 @@ public:
     virtual void SetObject(OBJECT t)=0;
     virtual void SetKey(bool rich) = 0;
     virtual bool GetKey() = 0;
-    virtual void SetStep(GO step) = 0;
-    virtual GO GetStep( ) = 0;
     virtual ~Cell(){};
 };
 

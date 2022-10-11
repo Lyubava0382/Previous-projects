@@ -23,11 +23,6 @@ Field::~Field() {
     delete[] field;
 }
 
-bool Field::Access(Coordinates state){
-    if (WithinField(state) && (field[state.y][state.x].GetObject() == NONE))
-        return true;
-    else return false;
-}
 
 bool Field::WithinField(Coordinates state){
     if ((state.x >= 0) && (state.x < width) &&

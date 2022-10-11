@@ -11,11 +11,9 @@
 #include <cstdlib>
 #include <ctime>
 #include "structs.h"
-#include "Characters.h"
-class Player: Characters{
+class Player {
 public:
     explicit Player();
-    OBJECT GetObject();
     void SetLocal(int placex, int placey);
     Coordinates GetLocal();
     bool Done() const;
@@ -26,7 +24,6 @@ private:
     Coordinates location{};
     int keyCount;
     int keys;
-    OBJECT type;
 
 };
 

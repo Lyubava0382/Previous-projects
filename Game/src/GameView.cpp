@@ -7,21 +7,23 @@ GameView::GameView(){
     left ='a';
     up = 'w';
     down = 's';
+    exit = 'x';
+    menu = 'm';
+    instruction = '?';
+    records = 'r';
     going = true;
 }
 
 void GameView::PrintMenu(){
     std::cout << "Hi, stranger... Welcome to the wonderful game\nRead this instruction carefully\n"<<
-              "To read the detailed rules, click - [" << *instruction<< "]\n"
-                 "To leave the game press [" << *exit<< "]\n"
-                 "To read the menu press [" << *menu<< "]\n"
-                 "To print the records press [" << *records<< "]\n"
+              "To read the detailed rules, click - [" << instruction<< "]\n"
+                 "To leave the game press [" << exit<< "]\n"
+                 "To print the records press [" << records<< "]\n"
                  "__________________________________________\n"
                  "To move around the map, use these keys:\n"
                   "Up - [" << up << "]\nLeft - [" << left<< "]"
                   "\nDown - [" << down<< "]\nRight - [" << right<< "]\n"
-                  "To change the control keys, press - []\n"
-                                                                                                                                                                                                                                                                      "To read the menu again, press - [" << *menu << "]\n";
+                  "To read the menu again, press - [" << menu << "]\n";
     //GameInput();
 }
 Coordinates GameView::GameInput(){
@@ -39,14 +41,14 @@ Coordinates GameView::GameInput(){
     else if (command == up){
         return {0,-1};
     }
-    else if (command == *exit){
+    else if (command == exit){
         LeaveGame();
     }
-    else if (command == *menu){
+    else if (command == menu){
         PrintMenu();
         return GameInput();
     }
-    else if (command == *records){
+    else if (command == records){
         double outt;
         std::ifstream record("..\\src\\new.txt");
         while(record.good()){
@@ -56,7 +58,7 @@ Coordinates GameView::GameInput(){
         record.close();
         return GameInput();
     }
-    else if (command == *instruction){
+    else if (command == instruction){
         ReadInstruction();
         return GameInput();
     }
