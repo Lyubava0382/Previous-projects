@@ -1,0 +1,66 @@
+body {
+margin: 0;
+background-color: rgb(255, 205, 244);
+background: #c7b39b url(BLGr.gif);
+}
+
+
+#main {
+    padding: 3rem;
+    text-align: center;
+}
+
+#main h1 {
+    font-family: "Press Start 2P";
+    color: black;
+}
+#main canvas {
+    display: block;
+    position: absolute;
+    top: 150px;
+    left: 300px;
+}
+
+
+.block1 { 
+    width: 270px; 
+    background: rgb(248, 205, 250);
+    padding: 5px;
+    border: solid 2px darkblue; 
+    float: left;
+    position: absolute;
+    top: 0px; 
+    left: 950px; 
+    position: relative; 
+    font-size: 140%; 
+    border-radius: 8px;
+    color: darkblue; 
+   }
+
+   .block1 pre { 
+    font-family:  "Press Start 2P";
+    font-size: 50%;
+   }
+
+button { 
+    cursor: pointer;
+    
+   }
+   .btn {
+    display: inline-block; /* Строчно-блочный элемент */
+    background: rgb(248, 205, 250); /* Серый цвет фона */
+    cursor: pointer;
+    color: darkblue; /* Белый цвет текста */
+    border: solid 2px darkblue; 
+    padding: 1rem 1.5rem; /* Поля вокруг текста */
+    text-decoration: none; /* Убираем подчёркивание */
+    border-radius: 8px; /* Скругляем уголки */
+    font-family:  "Press Start 2P";
+    line-height: 20px;
+    position: absolute;
+    top: 150px; 
+    left: 750px;
+    width: 80px; 
+    height: 50px;
+    font-size: 50%; 
+   }

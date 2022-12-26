@@ -1,0 +1,47 @@
+Field::	MakeInOut:
+Height:	10
+Width:	15
+Entrance coordinPlayer::	SetLocal:
+location    x: 11	y: 2
+Key:	1
+Coins:	0
+
+Player::	SetLocal:
+location    x: 11	y: 2
+Key:	1
+Coins:	0
+
+Player::	SetLocal:
+location    x: 11	y: 2
+Key:	1
+Coins:	0
+
+Player::	SetLocal:
+location    x: 11	y: 2
+Key:	1
+Coins:	0
+
+inates
+
+Field::	MakeItems:
+Height:	10
+Width:	15
+Entrance coordination:	x:  11	y: 2
+Exit coordination:	x:  4	y: 5
+Number of monsters:	0
+Monsters coordinates
+
+Field::	MakeEnemies:
+Height:	10
+Width:	15
+Entrance coordination:	x:  11	y: 2
+Exit coordination:	x:  4	y: 5
+Number of monsters:	6
+Monsters coordinates
+0.	x:  0	y: 4
+1.	x:  3	y: 5
+2.	x:  9	y: 6
+3.	x:  2	y: 7
+4.	x:  9	y: 3
+5.	x:  1	y: 5
+

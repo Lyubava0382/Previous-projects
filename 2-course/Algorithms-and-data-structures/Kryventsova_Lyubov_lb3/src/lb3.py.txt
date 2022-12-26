@@ -1,0 +1,140 @@
+class Heap:
+    def __init__(self, n):
+        self.length = n
+        self.heap = [None] * self.length
+        self.size = 0
+
+    @staticmethod
+    def get_parent(index):
+        return (index - 1) // 2
+
+    @staticmethod
+    def get_left_child(index):
+        return 2 * index + 1
+
+    @staticmethod
+    def get_right_child(index):
+        return 2 * index + 2
+
+    def insert(self, element):
+        if self.size == self.length:
+            return -1
+        self.heap[self.size] = element
+        self.sift_up(self.size)
+        self.size += 1
+
+    def extract_min(self):
+        max_element = self.heap[0]
+        self.heap[0], self.heap[self.size-1] = self.heap[self.size-1], None
+        self.size -= 1
+        self.sift_down(0)
+        return max_element
+
+    def sift_up(self, index):
+        parent = self.get_parent(index)
+        while index > 0 and (self.heap[parent][1] > self.heap[index][1]\
+                or self.heap[parent][1] == self.heap[index][1] and self.heap[parent][0] > self.heap[index][0]):
+            self.heap[parent], self.heap[index] = self.heap[index], self.heap[parent]
+            index = parent
+            parent = self.get_parent(index)
+
+
+    def sift_down(self, index):
+        left = self.get_left_child(index)
+        right = self.get_right_child(index)
+        if left >= self.size and right >= self.size:
+            return
+        if right >= self.size:
+            if self.heap[left][1] < self.heap[index][1]:
+                max_index = left
+            else:
+                if self.heap[left][1] == self.heap[index][1]:
+                    max_index = left if self.heap[left][0] < self.heap[index][0] else index
+                else:
+                    max_index = index
+        else:
+            if self.heap[left][1] < self.heap[right][1]:
+                max_index = left
+            else:
+                if self.heap[left][1] == self.heap[right][1]:
+                    max_index = left if self.heap[left][0] < self.heap[right][0] else right
+                else:
+                    max_index = right
+            if self.heap[max_index][1] < self.heap[index][1]:
+                max_index = max_index
+            else:
+                if self.heap[max_index][1] == self.heap[index][1]:
+                    max_index = max_index if self.heap[max_index][0] < self.heap[index][0] else index
+                else:
+                    max_index = index
+        if max_index != index:
+            self.heap[max_index], self.heap[index] = self.heap[index], self.heap[max_index]
+            self.sift_down(max_index)
+
+
+    def __str__(self):
+        return str(self.heap)
+
+def main():
+    n, m = map(int, input().split())
+    min_heap = Heap(n)
+    for index_proc in range(n):
+        min_heap.insert((index_proc, 0))
+       # print(min_heap)
+    for time in input().split():
+        min_element = min_heap.extract_min()
+        print(*min_element)
+        min_heap.insert((min_element[0], min_element[1] + int(time)))
+       # print(min_heap)
+
+def pattern_test_for_heap(n, m, array, answer):
+    result = []
+    min_heap = Heap(n)
+    for index_proc in range(n):
+        min_heap.insert((index_proc, 0))
+    for time in array:
+        min_element = min_heap.extract_min()
+        print(*min_element)
+        result.append(min_element)
+        min_heap.insert((min_element[0], min_element[1] + int(time)))
+    assert result == answer, "\nTest: {}\nGot: {}\nExpected: {}" .format(array, result, answer)
+
+
+def test_for_heap():
+    test_n = 4
+    test_m = 20
+    test_array = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    answer = [(0, 0), (1, 0), (2, 0), (3, 0),(0, 1), (1, 1), (2, 1), (3, 1),
+              (0, 2), (1, 2), (2, 2), (3, 2),(0, 3), (1, 3), (2, 3), (3, 3),
+              (0, 4), (1, 4), (2, 4), (3, 4)]
+    pattern_test_for_heap(test_n, test_m, test_array, answer)
+
+    test_n = 1
+    test_m = 1
+    test_array = [0]
+    answer = [(0, 0)]
+    pattern_test_for_heap(test_n, test_m, test_array, answer)
+
+    test_n = 0
+    test_m = 0
+    test_array = []
+    answer = []
+    pattern_test_for_heap(test_n, test_m, test_array, answer)
+
+    test_n = 3
+    test_m = 6
+    test_array = [100, 100, 100, 100, 100, 100]
+    answer = [(0, 0), (1, 0), (2, 0), (0, 100), (1, 100), (2, 100)]
+    pattern_test_for_heap(test_n, test_m, test_array, answer)
+    
+    test_n = 2
+    test_m = 5
+    test_array = [50, 40, 30, 20, 10]
+    answer = [(0, 0), (1, 0), (1, 40), (0, 50), (0, 70)]
+    pattern_test_for_heap(test_n, test_m, test_array, answer)
+
+main()
+
+test_for_heap()
+
+print("All tests were successfully passed")
