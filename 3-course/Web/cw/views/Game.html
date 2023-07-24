@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Game</title>
+        <link rel="stylesheet" href="../styles/GameStyle.css">
+        <link rel="icon" type="image/x-icon" href="favicon-32x32.png">
+    </head>
+    <body>
+
+        <canvas id="canvas" width="240" height="240" style="border:1px solid #758520" >
+            Ваш браузер не поддерживает элемент Canvas
+        </canvas>
+
+        <script>
+            var canvas = document.getElementById("canvas");
+            var ctx = canvas.getContext("2d");
+        </script>
+
+        <script  src="../JS/objects.js"></script>
+        <script  src="../JS/fabrics/PlayerFabric.js"></script>
+        <script  src="../JS/fabrics/CoinFabric.js"></script>
+        <script  src="../JS/fabrics/BigHealFabric.js"></script>
+        <script  src="../JS/fabrics/MiddleUndeadFabric.js"></script>
+        <script  src="../JS/fabrics/MiddleOrcFabric.js"></script>
+        <script  src="../JS/fabrics/TreasureFabric.js"></script>
+        <script  src="../JS/fabrics/NextLevelFabric.js"></script>
+        <script  src="../JS/fabrics/MiddleDemonFabric.js"></script>
+        <script  src="../JS/fabrics/DoorFabric.js"></script>
+        <script  src="../JS/managers/MapManager.js"></script>
+        <script  src="../JS/managers/SpriteManager.js"></script>
+        <script  src="../JS/managers/EventsManager.js"></script>
+        <script  src="../JS/managers/PhysicManager.js"></script>
+        <script  src="../JS/managers/SoundManager.js"></script>
+        <script  src="../JS/managers/GameManager.js"></script>
+        <script src="../JS/Game.js"></script>
+    </body>
+</html>

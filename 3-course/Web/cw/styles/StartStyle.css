@@ -1,0 +1,37 @@
+@font-face {
+    font-family: "PixelarRegular";
+    font-style: normal;
+    font-weight: 10;
+    /* Браузер сначала попробует найти шрифт локально */
+    src: local("PixelarRegular"),
+        /* Если не получилось, загрузит woff */
+    url("/fonts/PixelarRegular.woff") format("woff")
+}
+body {
+    background-color: #2c812d;
+    background-image: url(background.jpg);
+}
+div {
+    text-align: center;
+    font-size: 30px;
+    font-family: "PixelarRegular", serif;
+    color: #eefd23;
+}
+form {
+    font-family: "PixelarRegular", serif;
+    font-size: 50px;
+    color: #eefd23;
+    margin-top: 40px;
+    text-align: center;
+}
+input {
+    background-color: #f2faae;
+    border: 2px solid #2f7c0e;
+    color: #2f7c0e;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 30px;
+    font-family: "PixelarRegular", serif;
+}
